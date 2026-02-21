@@ -1,5 +1,5 @@
 {
-  "name": "timetrack",
+  "name": "tutorflow",
   "version": "1.0.0",
   "main": "electron/main.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "TimeTrack desktop scheduler for academy operations",
+  "description": "TutorFlow desktop scheduler for academy operations",
   "dependencies": {
     "better-sqlite3": "^12.6.2",
     "dayjs": "^1.11.19",
@@ -34,8 +34,8 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.timetrack.desktop",
-    "productName": "TimeTrack",
+    "appId": "com.tutorflow.desktop",
+    "productName": "TutorFlow",
     "asar": true,
     "directories": {
       "output": "dist-electron"
@@ -63,7 +63,7 @@
       {
         "provider": "github",
         "owner": "Minkyu01",
-        "repo": "TimeTrack"
+        "repo": "tutor-student-manager"
       }
     ],
     "nsis": {

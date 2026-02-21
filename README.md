@@ -69,5 +69,5 @@ For release trust/signing and operational checklist, see:
 
 ## Notes
 
-- Current internal package identifiers still use historical naming (`timetrack` / `TimeTrack`) in `package.json` and release config.
-- Product branding and repository documentation are now managed as **TutorFlow**.
+- Package and desktop product identifiers are aligned to **TutorFlow**.
+- Release target repository is `Minkyu01/tutor-student-manager`.
