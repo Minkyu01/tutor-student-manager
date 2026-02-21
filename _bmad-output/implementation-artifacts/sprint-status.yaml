@@ -96,9 +96,9 @@ development_status:
   11-1-real-time-current-time-line-position-accuracy: done
   epic-11-retrospective: done
 
-  epic-12: backlog
-  12-1-macos-plus-windows-packaging-targets: ready-for-dev
-  12-2-github-releases-distribution-pipeline: backlog
-  12-3-in-app-auto-update-via-github-releases: backlog
-  12-4-release-trust-signing-and-operational-guardrails: backlog
+  epic-12: in-progress
+  12-1-macos-plus-windows-packaging-targets: in-progress
+  12-2-github-releases-distribution-pipeline: in-progress
+  12-3-in-app-auto-update-via-github-releases: in-progress
+  12-4-release-trust-signing-and-operational-guardrails: review
   epic-12-retrospective: optional
