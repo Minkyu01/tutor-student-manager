@@ -1,0 +1,104 @@
+# generated: 2026-02-20T00:00:00Z
+# project: TimeTrack
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+#
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created, ready for development
+#   - in-progress: Developer actively working on implementation
+#   - review: Implementation complete, ready for review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - This file was initialized from existing docs + current code/test progress.
+# - Latest e2e snapshot at initialization: 8 passed, 2 failed.
+
+generated: 2026-02-21T00:00:00Z
+project: TimeTrack
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  epic-1: done
+  1-1-app-scaffold-and-database-bootstrap: done
+  1-2-student-query-and-crud-api: done
+  1-3-lesson-crud-and-summary-api: done
+  1-4-pin-verify-and-write-token-guard: done
+  epic-1-retrospective: optional
+
+  epic-2: done
+  2-1-header-navigation-and-period-mode-switching: done
+  2-2-student-panel-search-filter-and-status-badges: done
+  2-3-week-timetable-slot-interaction-and-lesson-modal: done
+  2-4-summary-strip-and-expandable-canceled-makeup-list: done
+  2-5-student-modal-create-update-delete-and-active-toggle: done
+  epic-2-retrospective: optional
+
+  epic-3: done
+  3-1-lesson-edit-delete-flow-validation: done
+  3-2-end-to-end-coverage-for-core-mvp-journeys: done
+  3-3-lesson-modal-title-field-and-e2e-selector-alignment: done
+  epic-3-retrospective: done
+
+  epic-4: done
+  4-1-dashboard-layout-and-visual-token-alignment: done
+  4-2-student-modal-ui-alignment: done
+  4-3-lesson-modal-ui-alignment: done
+  4-4-additional-dashboard-entry-file-alignment: done
+  epic-4-retrospective: done
+
+  epic-5: done
+  5-1-legacy-snapshot-and-workspace-preservation: done
+  5-2-electron-shell-and-embedded-api-bootstrap: done
+  5-3-local-sqlite-path-and-runtime-config-bridge: done
+  epic-5-retrospective: optional
+
+  epic-6: done
+  6-1-window-lifecycle-and-crash-safe-shutdown: done
+  6-2-security-baseline-in-preload-renderer-boundary: done
+  6-3-packaging-pipeline-for-macos-distribution: done
+  epic-6-retrospective: optional
+
+  epic-7: done
+  7-1-backup-and-restore-workflow: done
+  7-2-migration-guardrails-and-integrity-checks: done
+  7-3-desktop-regression-test-coverage: done
+  epic-7-retrospective: done
+
+  epic-8: done
+  8-1-drag-and-drop-lesson-rescheduling: done
+  epic-8-retrospective: done
+
+  epic-9: done
+  9-1-two-hour-default-and-half-hour-drag-rescheduling: done
+  epic-9-retrospective: done
+
+  epic-10: done
+  10-1-half-hour-slot-rendering-and-duration-constrained-lesson-editing: done
+  epic-10-retrospective: optional
+
+  epic-11: done
+  11-1-real-time-current-time-line-position-accuracy: done
+  epic-11-retrospective: done
+
+  epic-12: backlog
+  12-1-macos-plus-windows-packaging-targets: ready-for-dev
+  12-2-github-releases-distribution-pipeline: backlog
+  12-3-in-app-auto-update-via-github-releases: backlog
+  12-4-release-trust-signing-and-operational-guardrails: backlog
+  epic-12-retrospective: optional

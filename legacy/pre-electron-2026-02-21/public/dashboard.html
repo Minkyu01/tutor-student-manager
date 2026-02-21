@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeTrack MVP</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="pinGate" class="pin-gate">
+      <form id="pinGateForm" class="pin-card">
+        <h2>관리자 PIN 입력</h2>
+        <p>4자리 PIN을 입력하면 TimeTrack에 진입할 수 있습니다.</p>
+        <input
+          id="pinGateInput"
+          type="password"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="4"
+          placeholder="예: 1234"
+          required
+        />
+        <button type="submit">입장하기</button>
+        <div id="pinGateError" class="pin-error hidden"></div>
+      </form>
+    </div>
+
+    <div id="appShell" class="app-shell hidden">
+      <aside class="sidebar-panel">
+        <div class="brand-row">
+          <div class="brand-icon">⬢</div>
+          <div>
+            <div class="brand-title">아카데미 관리</div>
+            <div class="brand-sub">ADMIN PORTAL</div>
+          </div>
+        </div>
+
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="studentSearch" type="text" placeholder="이름/닉네임 검색" />
+        </label>
+
+        <nav class="sidebar-nav" id="sectionTabs">
+          <button class="sidebar-tab active" data-tab="schedule" type="button">
+            <span class="sidebar-tab-icon">◴</span>
+            수업 시간표
+          </button>
+          <button class="sidebar-tab" data-tab="students" type="button">
+            <span class="sidebar-tab-icon">◔</span>
+            학생 관리
+          </button>
+        </nav>
+
+        <div class="pill-row" id="studentFilterPills">
+          <button class="pill active" data-filter="all">전체</button>
+          <button class="pill" data-filter="hasCanceled">취소 있음</button>
+          <button class="pill" data-filter="hasMakeup">보강 있음</button>
+          <button class="pill" data-filter="unassigned">미배정</button>
+          <button class="pill" data-filter="active">수강중</button>
+          <button class="pill" data-filter="inactive">비활성</button>
+        </div>
+
+        <div class="sidebar-list-title">최근 활동 학생</div>
+
+        <div id="studentList" class="student-list"></div>
+
+        <button id="newStudentBtn" class="add-student-btn">👤 학생 추가</button>
+      </aside>
+
+      <section class="main-panel">
+        <header class="schedule-header">
+          <h1 id="mainTitle">수업 시간 표</h1>
+
+          <div id="scheduleNav" class="schedule-nav schedule-only">
+            <button id="prevBtn" class="ghost-btn" type="button">‹</button>
+            <button id="todayBtn" class="today-btn" type="button">Today</button>
+            <button id="nextBtn" class="ghost-btn" type="button">›</button>
+          </div>
+
+          <div id="periodLabel" class="period-text schedule-only"></div>
+
+          <div class="mode-toggle">
+            <button class="mode-btn active" data-mode="week" type="button">주</button>
+            <button class="mode-btn" data-mode="month" type="button">월</button>
+            <button class="mode-btn" data-mode="year" type="button">년</button>
+          </div>
+
+          <button class="icon-btn" type="button" aria-label="print">⎙</button>
+          <button class="icon-btn" type="button" aria-label="lock">●</button>
+        </header>
+
+        <section id="scheduleView" class="main-view">
+          <div class="summary-strip">
+            <button id="summaryToggleBtn" class="summary-counts" type="button">
+              <span class="dot dot-canceled"></span>
+              <span id="cancelCount">취소 0건</span>
+              <span class="dot dot-makeup"></span>
+              <span id="makeupCount">보강 0건</span>
+            </button>
+
+            <div class="legend">
+              <span><i class="legend-box legend-normal"></i>일반</span>
+              <span><i class="legend-box legend-canceled"></i>취소</span>
+              <span><i class="legend-box legend-makeup"></i>보강</span>
+            </div>
+          </div>
+
+          <div id="summaryItems" class="summary-items hidden"></div>
+
+          <div id="timetable" class="timetable-root"></div>
+        </section>
+
+        <section id="studentsView" class="main-view students-view hidden">
+          <div class="students-view-head">
+            <div>
+              <h2>원생 목록</h2>
+              <p id="studentRosterCount">총 0명의 학생이 등록되어 있습니다.</p>
+            </div>
+            <button id="studentRegisterBtn" class="register-student-btn" type="button">+ 원생 등록</button>
+          </div>
+
+          <div class="student-table-wrap">
+            <table class="student-table">
+              <thead>
+                <tr>
+                  <th>이름</th>
+                  <th>연락처</th>
+                  <th>등록일</th>
+                  <th>상태</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <dialog id="studentModal" class="modal-shell student-modal-shell">
+      <form method="dialog" id="studentForm" class="form-modal student-modal">
+        <div class="modal-head">
+          <h3 id="studentModalTitle"><span class="modal-title-icon">✎</span>학생 추가/수정</h3>
+          <button type="button" class="close-btn" data-close="studentModal">×</button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="studentId" />
+
+          <label for="studentName">이름/닉네임 *</label>
+          <input id="studentName" class="field" required placeholder="원생 이름을 입력하세요" />
+
+          <label for="studentPhone">연락처</label>
+          <input id="studentPhone" class="field" placeholder="010-1234-5678" />
+
+          <label for="studentNickname">별칭 (선택사항)</label>
+          <input id="studentNickname" class="field" placeholder="별칭을 입력하세요" />
+
+          <label for="studentMemo">메모 (선택사항)</label>
+          <textarea id="studentMemo" class="field textarea" placeholder="특이사항이나 상담 기록을 남겨주세요"></textarea>
+
+          <label class="student-active-check" for="studentActiveCheck">
+            <input id="studentActiveCheck" type="checkbox" checked />
+            <span>수강중 상태로 유지</span>
+          </label>
+        </div>
+
+        <div class="modal-foot student-foot">
+          <button id="deleteStudentBtn" type="button" class="delete-btn hidden">🗑 제거</button>
+          <div class="student-actions">
+            <button type="button" class="modal-cancel student-cancel" data-close="studentModal">취소</button>
+            <button type="submit" class="modal-save student-save">저장하기</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="lessonModal" class="modal-shell lesson-modal-shell">
+      <form method="dialog" id="lessonForm" class="form-modal lesson-modal">
+        <div class="modal-head">
+          <h3 id="lessonModalTitle">수업 추가/수정</h3>
+          <button type="button" class="close-btn" data-close="lessonModal">×</button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="lessonId" />
+
+          <label for="lessonStudent">학생 선택</label>
+          <select id="lessonStudent" class="field" required></select>
+
+          <div class="field-grid lesson-field-grid">
+            <div class="lesson-input-cell">
+              <label for="lessonDate">수업 날짜</label>
+              <div class="input-icon-wrap">
+                <input id="lessonDate" type="date" class="field" required />
+                <span class="field-icon">◷</span>
+              </div>
+            </div>
+            <div class="lesson-input-cell">
+              <label for="lessonTime">수업 시간</label>
+              <div class="input-icon-wrap">
+                <input id="lessonTime" type="time" class="field" required />
+                <span class="field-icon">◔</span>
+              </div>
+            </div>
+          </div>
+
+          <label>수업 상태</label>
+          <div class="status-group" id="lessonStatusGroup">
+            <button type="button" class="status-btn active" data-status="normal">정상</button>
+            <button type="button" class="status-btn" data-status="canceled">취소</button>
+            <button type="button" class="status-btn" data-status="makeup">보강</button>
+          </div>
+
+          <label for="lessonTitle">수업 제목 (선택사항)</label>
+          <input id="lessonTitle" type="text" class="field" placeholder="예: 중등 수학 보강" />
+
+          <label for="lessonMemo">수업 메모</label>
+          <textarea id="lessonMemo" class="field textarea" placeholder="특이사항을 입력해주세요"></textarea>
+        </div>
+
+        <div class="modal-foot lesson-foot">
+          <button id="deleteLessonBtn" type="button" class="delete-btn hidden">🗑 삭제</button>
+          <div class="lesson-actions">
+            <button type="button" class="modal-cancel lesson-cancel" data-close="lessonModal">취소</button>
+            <button type="submit" class="modal-save lesson-save">저장하기</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

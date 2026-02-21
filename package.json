@@ -1,0 +1,75 @@
+{
+  "name": "timetrack",
+  "version": "1.0.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "dev:electron": "npm run rebuild:electron && electron .",
+    "start": "node src/server.js",
+    "start:electron": "npm run rebuild:electron && electron .",
+    "rebuild:electron": "electron-builder install-app-deps",
+    "dist:dir": "npm run rebuild:electron && electron-builder --dir",
+    "dist:mac": "npm run rebuild:electron && electron-builder --mac dmg zip",
+    "dist:win": "npm run rebuild:electron && electron-builder --win nsis zip",
+    "dist:all": "npm run rebuild:electron && electron-builder --mac dmg zip --win nsis zip",
+    "release:mac": "npm run rebuild:electron && electron-builder --mac dmg zip --publish always",
+    "release:win": "npm run rebuild:electron && electron-builder --win nsis zip --publish always",
+    "migrate:students-active": "node scripts/migrate-students-active.js",
+    "test:desktop-db-path": "node scripts/desktop-regression-smoke.js",
+    "test:e2e": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "TimeTrack desktop scheduler for academy operations",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "dayjs": "^1.11.19",
+    "electron-updater": "^6.6.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "electron": "^30.5.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.timetrack.desktop",
+    "productName": "TimeTrack",
+    "asar": true,
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Minkyu01",
+        "repo": "TimeTrack"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
